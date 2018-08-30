@@ -59,6 +59,11 @@ export interface CalculatorInputProps extends CalculatorCommonProps {
    * Suffix text.
    */
   suffix?: string
+  
+  /**
+   * Format thext.
+   */
+  format?: (value: number) => string
 }
 
 interface State {
@@ -110,7 +115,7 @@ export class CalculatorInput extends React.Component<
   }
 
   renderTextField() {
-    const { fieldContainerStyle, fieldTextStyle, prefix, suffix } = this.props
+    const { fieldContainerStyle, fieldTextStyle, prefix, suffix, format= x=>x } = this.props
 
     return (
       <View style={[styles.container, fieldContainerStyle]}>
@@ -119,7 +124,7 @@ export class CalculatorInput extends React.Component<
           style={styles.innerContainer}
         >
           <Text style={[styles.text, fieldTextStyle]}>
-            {prefix + this.state.text + suffix}
+            {prefix + format(this.state.text) + suffix}
           </Text>
         </TouchableOpacity>
       </View>
